@@ -1,7 +1,7 @@
 
 // settings
 var report = 'nca3';
-var server = 'http://data-stage.globalchange.gov';
+var server;
 
 // globals
 var current_chapter;
