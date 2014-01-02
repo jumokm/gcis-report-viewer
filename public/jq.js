@@ -1,6 +1,6 @@
 
 // settings
-var report = 'nca3';
+var report;
 var server;
 
 // globals
@@ -164,7 +164,13 @@ function main() {
     var me = document.location.href.replace('www','data');
     me = me.replace('/index.html','');
     me = me.replace('3000','3001');
+    me = me.replace(/\/$/,'');
     server = me;
+    if (server.match(/data-stage/)) {
+	report = 'nca3';
+    } else {
+	report = 'nca3draft';
+    }
     $.getJSON( server + '/report/' + report + '.json', function(d) {
         $('#report_' + report).addClass('active');
         set_title(d.title);
