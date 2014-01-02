@@ -11,8 +11,8 @@
 
 <nav class="navbar navbar-default" role="navigation">
 <div class='colllapse navbar-collapse'>
-<span class='navbar-brand' id='title'>
-</span>
+<span class='navbar-brand' id='title'></span>
+<a class='navbar-brand pull-right' id='server' href="http://google.com">google</a>
 </div>
 </nav>
 
@@ -31,6 +31,10 @@
 
 <script id='finding_button' type='text/template'>
     <span class="btn btn-default finding_link" id='finding_<%= identifier %>' finding_identifier="<%= identifier %>" href="<%- uri %>"><%= ordinal %> <%= identifier %></a>
+</script>
+
+<script id='figure_button' type='text/template'>
+    <span class="btn btn-default figure_link" id='figure_<%= identifier %>' figure_identifier="<%= identifier %>" href="<%- uri %>"><%= ordinal %> <%= identifier %></a>
 </script>
 
 <script id='chapter_contents' type='text/template'>
@@ -52,6 +56,12 @@
             <dd><%= statement %></dd>
         </dl>
         </div>
+    </div>
+</script>
+
+<script id='show_figure' type='text/template'>
+    <div id='shown_figure'>
+        <h3>Figure <%= ordinal %>: <%= title %></h3>
     </div>
 </script>
 
