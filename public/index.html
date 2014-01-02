@@ -35,6 +35,10 @@
     <span class="btn btn-default finding_link" id='finding_<%= identifier %>' finding_identifier="<%= identifier %>" href="<%- uri %>"><%= ordinal %> <%= identifier %></a>
 </script>
 
+<script id='table_button' type='text/template'>
+    <span class="btn btn-default table_link" id='table_<%= identifier %>' table_identifier="<%= identifier %>" href="<%- uri %>"><%= ordinal %> <%= identifier %></a>
+</script>
+
 <script id='figure_button' type='text/template'>
     <span class="btn btn-default figure_link" id='figure_<%= identifier %>' figure_identifier="<%= identifier %>" href="<%- uri %>"><%= ordinal %> <%= identifier %></a>
 </script>
@@ -60,6 +64,20 @@
         </div>
     </div>
 </script>
+
+<script id='show_table' type='text/template'>
+    <div id='shown_table'>
+        <h3>Table <%= ordinal %>: <%= identifier %></h3>
+         <% if (typeof(files) != "undefined") { %>
+            <div class='row-fluid'>
+             <% _.each(files,function(item){ %>
+                 <img src="<%= server %><%= item.url %>" class="img-responsive" />
+             <% }) %>
+             </div>
+         <% } %>
+    </div>
+</script>
+
 
 <script id='show_figure' type='text/template'>
     <div id='shown_figure'>

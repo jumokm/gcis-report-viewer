@@ -8,6 +8,7 @@ var current_chapter;
 var current_category;
 var current_finding;
 var current_figure;
+var current_table;
 
 // jq.js
 $(main);
@@ -27,16 +28,22 @@ function load_chapters(report) {
     load_all_buttons(server + '/report/' + report + '/chapter.json?all=1', 'chapter', 'Chapters', 'chapter_button' );
 }
 
+function clear_all() {
+    $('#shown_finding').remove();
+    $('#shown_figure').remove();
+    $('#shown_table').remove();
+    $('#findings').remove();
+    $('#figures').remove();
+    $('#tables').remove();
+}
+
 function load_findings(e) {
     if (current_category) {
         $('#category_' + current_category).removeClass('active');
     }
     current_category = 'findings';
     $('#category_findings').addClass('active');
-    $('#shown_finding').remove();
-    $('#shown_figure').remove();
-    $('#findings').remove();
-    $('#figures').remove();
+    clear_all();
     load_all_buttons(server + '/report/' + report + '/chapter/' + current_chapter + '/finding.json?all=1', 'findings', 'Findings', 'finding_button' );
 }
 
@@ -47,11 +54,18 @@ function load_figures(e) {
     }
     current_category = 'figures';
     $('#category_figures').addClass('active');
-    $('#shown_finding').remove();
-    $('#shown_figure').remove();
-    $('#figures').remove();
-    $('#findings').remove();
+    clear_all();
     load_all_buttons(server + '/report/' + report + '/chapter/' + current_chapter + '/figure.json?all=1', 'figures', 'Figures', 'figure_button' );
+}
+
+function load_tables(e) {
+    if (current_category) {
+        $('#category_' + current_category).removeClass('active');
+    }
+    current_category = 'tables';
+    $('#category_tables').addClass('active');
+    clear_all();
+    load_all_buttons(server + '/report/' + report + '/chapter/' + current_chapter + '/table.json?all=1', 'tables', 'Tables', 'table_button' );
 }
 
 function choose_chapter(e) {
@@ -62,10 +76,7 @@ function choose_chapter(e) {
     current_chapter = t.attr('chapter_identifier');
     t.addClass('active');
     $('#chapter_contents_list').remove();
-    $('#findings').remove();
-    $('#figures').remove();
-    $('#shown_finding').remove();
-    $('#shown_figure').remove();
+    clear_all();
     if (current_chapter) {
         $.getJSON( server + '/report/' + report + '/chapter/' + current_chapter + '.json' , function(d) {
             $('#main').append(_.template($('#chapter_contents').html(), d ));
@@ -87,6 +98,23 @@ function choose_finding (e) {
     $.getJSON(server + '/report/' + report + '/chapter/' + current_chapter + '/finding/' + identifier + '.json',
             function(d) {
                 $('#main').append(_.template($('#show_finding').html(),d));
+            });
+}
+
+function choose_table (e) {
+    var t = $(e.target);
+    var identifier = t.attr('table_identifier');
+    if (current_table) {
+        $('#table_' + current_table).removeClass('active');
+    }
+    current_table = identifier;
+    $('#table_' + identifier).addClass('active');
+    $('#shown_table').remove();
+    $('#shown_figure').remove();
+    console.log('choose table ' + identifier);
+    $.getJSON(server + '/report/' + report + '/chapter/' + current_chapter + '/table/' + identifier + '.json',
+            function(d) {
+                $('#main').append(_.template($('#show_table').html(),d));
             });
 }
 
@@ -142,7 +170,9 @@ function main() {
     $(document).delegate(".chapter_link","click",choose_chapter);
     $(document).delegate(".findings","click",load_findings);
     $(document).delegate(".figures","click",load_figures);
+    $(document).delegate(".tables","click",load_tables);
     $(document).delegate(".finding_link","click",choose_finding);
+    $(document).delegate(".table_link","click",choose_table);
     $(document).delegate(".figure_link","click",choose_figure);
 }
 
