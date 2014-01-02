@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 use Mojolicious::Lite;
 
-get '/' => 'main';
+get '/' => sub { shift->redirect_to('index.html') };
 
 get '/greet' => { json => { msg => 'hello, world' } };
 
