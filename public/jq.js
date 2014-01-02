@@ -105,17 +105,38 @@ function choose_figure (e) {
             function(d) {
                 console.log('got ', d);
                 $('#main').append(_.template($('#show_figure').html(),d));
+                $('.image_identifier').each(
+                    function() {
+                        var div = $(this);
+                        var img = $("<img>");
+                        img.attr({class : "img-responsive"});
+                        var identifier = div.attr('image_identifier');
+                        console.log('getting image ' + identifier);
+                        $.getJSON( server + '/image/' + identifier + '.json', function(d) {
+                                var f = d.files;
+                                console.log('image has file : ',f);
+                                img.attr({src : server + f[0].url});
+                            });
+                        div.html(img);
+                    });
             });
 }
 
 function set_title(r) {
     $('#title').html(r);
 }
+function set_server(r) {
+    var l = $("<a>");
+    l.text(r.replace('http://',''));
+    l.attr({href : r, target : '_blank' });
+    $('#server').html(l);
+}
 
 function main() {
     $.getJSON( server + '/report/' + report + '.json', function(d) {
         $('#report_' + report).addClass('active');
         set_title(d.title);
+        set_server(server);
         load_chapters(report);
     });
     $(document).delegate(".chapter_link","click",choose_chapter);

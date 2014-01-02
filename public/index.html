@@ -12,7 +12,10 @@
 <nav class="navbar navbar-default" role="navigation">
 <div class='colllapse navbar-collapse'>
 <span class='navbar-brand' id='title'></span>
-<a class='navbar-brand pull-right' id='server' href="http://google.com">google</a>
+<ul class="nav navbar-nav pull-right">
+    <li id='server'>
+    </li>
+</ul>
 </div>
 </nav>
 
@@ -62,6 +65,13 @@
 <script id='show_figure' type='text/template'>
     <div id='shown_figure'>
         <h3>Figure <%= ordinal %>: <%= title %></h3>
+        <div class='row-fluid'>
+         <% _.each(images,function(item){ %>
+             <div class='col-xs-6 col-md-3 image_identifier' image_identifier="<%= item.identifier %>">
+                 <%= item.identifier %>
+             </div>
+         <%  })                       %>
+        </div>
     </div>
 </script>
 
