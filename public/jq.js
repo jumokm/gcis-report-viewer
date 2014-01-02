@@ -155,12 +155,16 @@ function set_title(r) {
 }
 function set_server(r) {
     var l = $("<a>");
-    l.text(r.replace('http://',''));
+    l.html('<small>powered by gcis on ' + r.replace('http://','') + '</small>');
     l.attr({href : r, target : '_blank' });
     $('#server').html(l);
 }
 
 function main() {
+    var me = document.location.href.replace('www','data');
+    me = me.replace('/index.html','');
+    me = me.replace('3000','3001');
+    server = me;
     $.getJSON( server + '/report/' + report + '.json', function(d) {
         $('#report_' + report).addClass('active');
         set_title(d.title);
