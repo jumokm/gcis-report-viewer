@@ -6,8 +6,8 @@ var report;
 server = guess_server();       // 'http://data-stage.globalchange.gov';
 report = guess_report(server); //'nca3';
 
-server = 'http://data-stage.globalchange.gov';
-//report = 'nca3';
+//server = 'http://data.globalchange.gov';
+//report = 'nca3draft';
 
 // globals
 var current_chapter;
@@ -140,6 +140,9 @@ function choose_figure (e) {
                 console.log('got ', d);
                 if (!d.images) {
                     d.images = [];
+                }
+                if (!d.files) {
+                    d.files = [];
                 }
                 $('#main').append(_.template($('#show_figure').html(),d));
                 $('.image_identifier').each(
