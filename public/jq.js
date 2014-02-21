@@ -1,10 +1,13 @@
 
 // settings
-var server = guess_server();       // 'http://data-stage.globalchange.gov';
-var report = guess_report(server); //'nca3';
+var server;
+var report;
 
-//var server = 'http://data-stage.globalchange.gov';
-//var report = 'nca3';
+server = guess_server();       // 'http://data-stage.globalchange.gov';
+report = guess_report(server); //'nca3';
+
+server = 'http://data-stage.globalchange.gov';
+//report = 'nca3';
 
 // globals
 var current_chapter;
@@ -171,14 +174,21 @@ function guess_server() {
     me = me.replace('/index.html','');
     me = me.replace('3000','3001');
     me = me.replace(/\/$/,'');
-    server = me;
-    if (server.match(/data-stage|test/)) {
-	report = 'nca3';
-    } else {
+    return me;
+}
+
+function guess_report(server) {
+    var report;
+     if (server.match(/data-stage|test/)) {
+        report = 'nca3';
+    } else if (server.match(/localhost/)) {
+        report = 'nca3';
+     } else {
         report = 'nca3draft';
-    }
+     }
     return report;
 }
+
 function main() {
     $.getJSON( server + '/report/' + report + '.json', function(d) {
         $('#report_' + report).addClass('active');
