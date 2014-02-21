@@ -166,7 +166,7 @@ function main() {
     me = me.replace('3000','3001');
     me = me.replace(/\/$/,'');
     server = me;
-    if (server.match(/data-stage/)) {
+    if (server.match(/data-stage|test/)) {
 	report = 'nca3';
     } else {
 	report = 'nca3draft';
