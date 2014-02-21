@@ -1,7 +1,10 @@
 
 // settings
-var report;
-var server;
+var server = guess_server();       // 'http://data-stage.globalchange.gov';
+var report = guess_report(server); //'nca3';
+
+//var server = 'http://data-stage.globalchange.gov';
+//var report = 'nca3';
 
 // globals
 var current_chapter;
@@ -132,6 +135,9 @@ function choose_figure (e) {
     $.getJSON(server + '/report/' + report + '/chapter/' + current_chapter + '/figure/' + identifier + '.json',
             function(d) {
                 console.log('got ', d);
+                if (!d.images) {
+                    d.images = [];
+                }
                 $('#main').append(_.template($('#show_figure').html(),d));
                 $('.image_identifier').each(
                     function() {
@@ -160,7 +166,7 @@ function set_server(r) {
     $('#server').html(l);
 }
 
-function main() {
+function guess_server() {
     var me = document.location.href.replace('www','data');
     me = me.replace('/index.html','');
     me = me.replace('3000','3001');
@@ -169,8 +175,11 @@ function main() {
     if (server.match(/data-stage|test/)) {
 	report = 'nca3';
     } else {
-	report = 'nca3draft';
+        report = 'nca3draft';
     }
+    return report;
+}
+function main() {
     $.getJSON( server + '/report/' + report + '.json', function(d) {
         $('#report_' + report).addClass('active');
         set_title(d.title);
