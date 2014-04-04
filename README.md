@@ -1,7 +1,7 @@
-gcis-report-viewer
+GCIS Report Viewer
 ===================
 
-[gcis-report-viewer](http://bduggan.github.io/gcis-report-viewer/)
+The [GCIS Report Viewer](http://bduggan.github.io/gcis-report-viewer/)
 uses the [Global Change Information System](http://data.globalchange.gov)
 to display structured content from a report.
 
