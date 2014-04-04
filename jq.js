@@ -159,8 +159,9 @@ function choose_figure (e) {
             });
 }
 
-function set_title(r) {
-    $('#title').html(r);
+function set_report(r) {
+    $('#report_title').html(r.title);
+    $('#report_identifier').html(r.identifier);
 }
 function set_server(r) {
     var l = $("<a>");
@@ -172,7 +173,7 @@ function set_server(r) {
 function main() {
     $.getJSON( server + '/report/' + report + '.json', function(d) {
         $('#report_' + report).addClass('active');
-        set_title(d.title);
+        set_report(d);
         set_server(server);
         load_chapters(report);
     });
