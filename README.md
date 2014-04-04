@@ -5,5 +5,6 @@ gcis-report-viewer
 uses the [Global Change Information System](http://data.globalchange.gov)
 to display structured content from a report.
 
-This is written using Jquery, underscore.js and bootstrap 3.
+This is written using primarily [jQuery](http://jquery.com),
+ [underscore.js](http://underscorejs.org) and [Bootstrap 3](http://getbootstrap.com).
 
