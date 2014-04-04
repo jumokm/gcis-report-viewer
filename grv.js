@@ -162,12 +162,14 @@ function choose_figure (e) {
 function set_report(r) {
     $('#report_title').html(r.title);
     $('#report_identifier').html(r.identifier);
+    $('#input_report_identifier').val(r.identifier);
 }
 function set_server(r) {
     var l = $("<a>");
-    l.html('<small>powered by gcis on ' + r.replace('http://','') + '</small>');
+    l.html(r.replace('http://',''));
     l.attr({href : r, target : '_blank' });
     $('#server').html(l);
+    $('#input_server').val(r);
 }
 
 function main() {
@@ -186,4 +188,21 @@ function main() {
     $(document).delegate(".figure_link","click",choose_figure);
 }
 
-
+function update_settings() {
+    server = $('#input_server').val();
+    report = $('#input_report_identifier').val();
+    clear_all();
+    current_chapter = null;
+    current_category = null;
+    current_finding = null;
+    current_figure = null;
+    current_table = null;
+    $('#chapter').remove();
+    $('#chapter_contents_list').remove();
+    $.getJSON( server + '/report/' + report + '.json', function(d) {
+        $('#report_' + report).addClass('active');
+        set_report(d);
+        set_server(server);
+        load_chapters(report);
+    });
+}

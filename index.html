@@ -13,12 +13,51 @@
 
 <nav class="navbar navbar-default" role="navigation">
 <div class='colllapse navbar-collapse'>
-<span class='navbar-brand'>gcis-report-viewer</span>
-<ul class="nav navbar-nav pull-left">
-    <li id='server'></li>
-</ul>
+    <span class='navbar-brand'>gcis-report-viewer</span>
+    <div class="navbar-form navbar-left">
+        <span class='btn btn-default btn-sm'data-toggle="modal" data-target="#settings">
+        <span class="glyphicon glyphicon-cog"></span> settings
+        </span>
+    </div>
 </div>
 </nav>
+<small>powered by gcis on <span id='server'></span></small>
+
+<div class="modal" id="settings">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Settings</h4>
+      </div>
+      <div class="modal-body">
+
+          <form role="form" class="form-horizontal">
+
+              <div class="form-group">
+                <label for="inputServer" class="col-sm-2 control-label">Server</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="input_server" placeholder="Server URL">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inputReport" class="col-sm-2 control-label">Report</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="input_report_identifier" placeholder="report identifier">
+                </div>
+              </div>
+
+          </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick='update_settings();'>apply changes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <h4><span id='report_identifier'></span> report : <span id='report_title'></span></h4>
 
@@ -26,7 +65,7 @@
 </div>
 
 <script id='report_button' type='text/template'>
-    <div id='report'><h3>Report</h3>
+    <div id='report'><h3>report</h3>
         <span class="btn btn-default report_link" id="report_<%= identifier %>" report_identifier="<%= identifier %>"><%= identifier %> : <%= title %></span>
     </div>
 </script>
@@ -49,7 +88,7 @@
 
 <script id='chapter_contents' type='text/template'>
 <div id='chapter_contents_list'>
-    <h3>Chapter <%= number %> : <%= title %></h3>
+    <h3>chapter <%= number %> : <%= title %></h3>
     <span class="btn btn-default findings" id='category_findings'>findings</span>
     <span class="btn btn-default figures" id='category_figures'>figures</span>
     <span class="btn btn-default tables" id='category_tables'>tables</span>
@@ -59,10 +98,10 @@
 
 <script id='show_finding' type='text/template'>
     <div id='shown_finding'>
-        <h3>Finding <%= ordinal %>: <%= identifier %></h3>
+        <h3>finding <%= ordinal %>: <%= identifier %></h3>
         <div class='well'>
         <dl>
-            <dt>Statement</dt>
+            <dt>statement</dt>
             <dd><%= statement %></dd>
         </dl>
         </div>
@@ -71,7 +110,7 @@
 
 <script id='show_table' type='text/template'>
     <div id='shown_table'>
-        <h3>Table <%= ordinal %>: <%= identifier %></h3>
+        <h3>table <%= ordinal %>: <%= identifier %></h3>
          <% if (typeof(files) != "undefined") { %>
             <div class='row-fluid'>
              <% _.each(files,function(item){ %>
@@ -85,7 +124,7 @@
 
 <script id='show_figure' type='text/template'>
     <div id='shown_figure'>
-        <h3>Figure <%= ordinal %>: <%= title %></h3>
+        <h3>figure <%= ordinal %>: <%= title %></h3>
         <div class='row-fluid'>
         <% _.each(files,function(item){ %>
             <% console.log(item); %>
