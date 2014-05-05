@@ -4,7 +4,7 @@ var server;
 var report;
 
 server = 'http://data.globalchange.gov';
-report = 'nca3draft';
+report = 'nca3';
 
 // globals
 var current_chapter;
